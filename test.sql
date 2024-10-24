@@ -146,3 +146,13 @@ BEGIN
     -- Optional: Return the Job_Id and Batch_Id
     SELECT @JobId AS JobId, @BatchId AS BatchId;
 END
+
+
+DECLARE @Base64String NVARCHAR(MAX) = 'SGVsbG8gd29ybGQ=';  -- This is 'Hello world' in Base64
+DECLARE @BinaryData VARBINARY(MAX);
+
+-- Convert Base64 string to binary
+SET @BinaryData = CAST('' AS XML).value('xs:base64Binary(sql:variable("@Base64String"))', 'VARBINARY(MAX)');
+
+-- Now @BinaryData contains the binary representation of the Base64 string
+SELECT @BinaryData AS BinaryData;
